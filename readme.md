@@ -1,48 +1,73 @@
-# 🏡 Rwanda Real Estate Platform 🇷🇼
+# 🏡 Tura Heza – Rwanda Real Estate Platform 🇷🇼
 
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)](https://tanstack.com/query/latest)
-[![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![Lucide Icons](https://img.shields.io/badge/Lucide-171717?style=for-the-badge&logo=lucide&logoColor=white)](https://lucide.dev/)
+[![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)](https://tanstack.com/query/latest)
 [![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-000000?style=for-the-badge&logoColor=white)](https://ui.shadcn.com/)
 
-> Discover your dream property in the heart of Rwanda! 🚀 A modern real estate platform built with Next.js, TypeScript, and a suite of powerful tools to make finding your perfect home or investment easy and enjoyable.
+> Discover your dream property in Rwanda! A full-stack real estate platform powered by modern technologies, real-time data, and responsive design.
+
+---
 
 ## ✨ Key Features
 
-- **Browse Listings:** Explore a wide variety of properties with detailed information and beautiful images. 🖼️
-- **Advanced Search:** Filter properties by location, price, number of bedrooms/bathrooms, and more. 🔍
-- **Favorite Properties:** Save your favorite listings to easily access them later. ❤️
-- **Agent Dashboard:** (If applicable) Dedicated area for agents to manage their properties, bookings, and users. 💼
-- **User Authentication:** Secure user registration and login. 🔑
-- **Interactive Maps:** Visualize property locations on a map. 🗺️
-- **Responsive Design:** Works seamlessly on all devices. 📱💻
-- **Real-time Updates:** (If applicable) Get the latest property updates. 🔔
-- **Analytics Dashboard:** (If applicable) Agents can view performance metrics. 📊
+### 🖼️ Frontend
+- **Browse Listings** – Explore beautiful property listings with detailed data.
+- **Advanced Search** – Filter by location, category, price, and more.
+- **Favorites System** – Save and manage your favorite properties.
+- **Responsive Design** – Works on phones, tablets, and desktops.
+- **Authentication** – Register/Login securely.
+- **Interactive Maps** – Visualize property locations on maps.
+- **Modern UI** – Built with Shadcn UI + Lucide Icons.
+
+### 🧠 Backend (Node.js + Express API)
+- **Property Endpoints**
+  - `GET /api/properties/` – List all properties
+  - `GET /api/properties/featured` – Featured listings
+  - `GET /api/properties/search` – Advanced search
+  - `GET /api/properties/:id` – Single property
+- **Creator Endpoints**
+  - `GET /api/agent/` – All creators
+  - `GET /api/agent/:id` – Get single creator
+  - `GET /api/agent/:id/properties` – Properties by creator
+- **Database** – MySQL/PostgreSQL (configurable)
+- **Authentication** – JWT-secured routes
+
+---
 
 ## 🛠️ Tech Stack
 
-This platform is built using the following awesome technologies:
+### 🌐 Frontend:
+- **Next.js** – React framework
+- **TypeScript** – Type-safe code
+- **Tailwind CSS** – Utility-first styling
+- **React Query** – API state management
+- **Lucide Icons** – Beautiful SVG icons
+- **Shadcn UI** – Accessible components
+- **Framer Motion** – Animations
 
-- **Frontend:**
-  - [Next.js](https://nextjs.org/): The React framework for production.
-  - [TypeScript](https://www.typescriptlang.org/): Adds static typing to JavaScript for improved code quality.
-  - [@tanstack/react-query](https://tanstack.com/query/latest): Powerful asynchronous data fetching and state management.
-  - [Tailwind CSS](https://tailwindcss.com/): Utility-first CSS framework for rapid styling.
-  - [Lucide Icons](https://lucide.dev/): Beautifully simple SVG icons.
-  - [Shadcn UI](https://ui.shadcn.com/): Re-usable UI components built using Radix UI and Tailwind CSS.
-  - [Framer Motion](https://www.framer.com/motion/): Animation library for React.
-  - [Next.js Router](https://nextjs.org/docs/pages/api-reference/use-router): For client-side navigation.
-  - [Next.js Image](https://nextjs.org/docs/pages/api-reference/next-image): For optimized image handling.
-- **Backend:** (You'll need to describe your backend if it's part of this repo or a separate one)
-  - _(e.g., Node.js with Express, Python with Django/Flask, etc.)_
-  - _(e.g., Database: PostgreSQL, MongoDB, etc.)_
-  - _(e.g., Authentication: JWT, NextAuth.js, etc.)_
-- **Other:**
-  - [use-toast](https://ui.shadcn.com/docs/components/toast): For elegant notifications.
-  - _(Any other significant libraries or tools you used)_
+### 🔧 Backend:
+- **Node.js** – Runtime
+- **Express.js** – Web framework
+- **MongoDB / PostgreSQL** – Flexible database choice
+- **JWT** – Token-based auth
+- **REST API** – Modular route system
 
+---
+
+## 📦 Installation Guide
+
+### 🧰 Prerequisites
+Make sure you have:
+- Node.js >= 18
+- npm / yarn / pnpm
+- MongoDB / PostgreSQL running
+
+---
 ## 🚀 Getting Started
 
 Follow these steps to get your local development environment up and running:
@@ -50,8 +75,8 @@ Follow these steps to get your local development environment up and running:
 1.  **Clone the repository:**
 
     ```bash
-    git clone <repository-url>
-    cd <your-project-directory>
+    git clone https://github.com/ChristianRukundo/Tura-Heza.git
+    cd Tura-Heza
     ```
 
 2.  **Install dependencies:**
@@ -95,12 +120,7 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 
 Please ensure your code follows the project's coding standards and includes appropriate tests.
 
-## 📄 License
-
-[MIT](LICENSE) (Choose the appropriate license for your project)
-
-
 
 ---
 
-Made with ❤️ in Rwanda 🇷🇼 by Your RUKUNDO SIBORUEMA Christian
+Made with ❤️ in Rwanda 🇷🇼 by Your RUKUNDO SIBORUREMA Christian
