@@ -27,6 +27,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+/**
+ * Page displaying the user's bookings.
+ *
+ * @remarks
+ * This page displays all of the user's bookings, including the property name,
+ * location, check-in and check-out dates, number of guests, and total amount.
+ * The user can cancel a booking by clicking the "Cancel" button.
+ */
 export default function BookingsPage() {
   const { toast } = useToast();
   const { data: bookingsData, isLoading } = useBookings();
@@ -186,6 +194,7 @@ export default function BookingsPage() {
           ))}
         </div>
       )}
+      
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>

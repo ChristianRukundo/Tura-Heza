@@ -1,6 +1,12 @@
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('USER', 'AGENT');
 
+-- CreateEnum
+CREATE TYPE "PaymentMethod" AS ENUM ('credit_card', 'paypal', 'mobile_money', 'bank_transfer');
+
+-- CreateEnum
+CREATE TYPE "PaymentStatus" AS ENUM ('pending', 'paid', 'failed', 'refunded');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -35,6 +41,7 @@ CREATE TABLE "Property" (
     "status" TEXT NOT NULL DEFAULT 'active',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "agentId" TEXT NOT NULL,
 
     CONSTRAINT "Property_pkey" PRIMARY KEY ("id")
 );
@@ -68,6 +75,20 @@ CREATE TABLE "Favorite" (
 );
 
 -- CreateTable
+CREATE TABLE "Payment" (
+    "id" TEXT NOT NULL,
+    "bookingId" TEXT NOT NULL,
+    "amount" DOUBLE PRECISION NOT NULL,
+    "method" "PaymentMethod" NOT NULL,
+    "status" "PaymentStatus" NOT NULL DEFAULT 'pending',
+    "transactionId" TEXT,
+    "paidAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Payment_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "RefreshToken" (
     "id" TEXT NOT NULL,
     "token" TEXT NOT NULL,
@@ -85,7 +106,13 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Favorite_userId_propertyId_key" ON "Favorite"("userId", "propertyId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Payment_bookingId_key" ON "Payment"("bookingId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "RefreshToken_token_key" ON "RefreshToken"("token");
+
+-- AddForeignKey
+ALTER TABLE "Property" ADD CONSTRAINT "Property_agentId_fkey" FOREIGN KEY ("agentId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Booking" ADD CONSTRAINT "Booking_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -98,6 +125,9 @@ ALTER TABLE "Favorite" ADD CONSTRAINT "Favorite_userId_fkey" FOREIGN KEY ("userI
 
 -- AddForeignKey
 ALTER TABLE "Favorite" ADD CONSTRAINT "Favorite_propertyId_fkey" FOREIGN KEY ("propertyId") REFERENCES "Property"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_bookingId_fkey" FOREIGN KEY ("bookingId") REFERENCES "Booking"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "RefreshToken" ADD CONSTRAINT "RefreshToken_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
