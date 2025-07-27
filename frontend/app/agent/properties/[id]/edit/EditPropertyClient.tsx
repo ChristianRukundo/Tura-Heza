@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image"; // Import Image component
-import { useProperty } from "@/lib/api/properties";
+import Image from "next/image"; 
 import { useUpdateProperty } from "@/lib/api/agent";
 import { useToast } from "@/hooks/use-toast";
 import { DashboardLayout } from "@/components/dashboard-layout";
