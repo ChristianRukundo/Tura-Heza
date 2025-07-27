@@ -30,6 +30,6 @@ router.put("/bookings/:id/status", updateBookingStatus);
 
 export default router;
 
-function updateBookingStatus(req: any, res: any, next: any) {
+function updateBookingStatus(_req: any, _res: any, next: any) {
   return next();
 }

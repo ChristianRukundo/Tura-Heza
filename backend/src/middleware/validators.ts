@@ -1,9 +1,9 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request,  NextFunction } from "express";
 
 const { body, validationResult } = require("express-validator");
 import { AppError } from "../utils/appError";
 
-const validate = (req: Request, res: Response, next: NextFunction) => {
+const validate = (req: Request,next: NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const errorMessages = errors

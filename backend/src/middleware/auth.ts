@@ -12,7 +12,7 @@ interface AuthenticatedRequest extends Request {
 
 export const protect = async (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ) => {
   try {
@@ -61,7 +61,7 @@ export const protect = async (
 };
 
 export const restrictTo = (...roles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return (req: Request, _res: Response, next: NextFunction) => {
     const authenticatedReq = req as AuthenticatedRequest;
     if (!authenticatedReq.user) {
       return next(new AppError("You are not logged in", 401));

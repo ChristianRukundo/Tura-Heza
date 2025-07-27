@@ -538,8 +538,6 @@ export const updateUserRole = async (
 };
 
 export const updateBookingStatus = async (
-  req: Request,
-  res: Response,
   next: NextFunction
 ) => {
   return next();

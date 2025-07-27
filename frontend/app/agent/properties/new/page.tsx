@@ -93,7 +93,15 @@ export default function AddPropertyPage() {
   };
 
   const onSubmit = (data: FormValues) => {
-    createPropertyMutation.mutate(data, {
+    // Ensure squareMeters is always a number and arrays are never undefined
+    const safeData = {
+      ...data,
+      squareMeters: typeof data.squareMeters === "number" ? data.squareMeters : 0,
+      amenities: Array.isArray(data.amenities) ? data.amenities : [],
+      outdoorFeatures: Array.isArray(data.outdoorFeatures) ? data.outdoorFeatures : [],
+      activities: Array.isArray(data.activities) ? data.activities : [],
+    };
+    createPropertyMutation.mutate(safeData, {
       onSuccess: () => {
         toast({
           title: "Property created",
