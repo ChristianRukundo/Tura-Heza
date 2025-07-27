@@ -1,10 +1,10 @@
-import type { User } from "@prisma/client"
+import { Request } from "express";
+import { User } from "./user";
 
-declare global {
-  namespace Express {
-    // Extend the Request interface
-    interface Request {
-      user?: User
-    }
+declare module "express" {
+  export interface Request {
+    user?: User;
   }
 }
+
+export interface AuthenticatedRequest extends Request {}

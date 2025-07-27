@@ -9,6 +9,8 @@ import routes from "./routes";
 import errorHandler from "./middleware/errorHandler";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./utils/swagger";
+import type { Request, Response } from "express";
+
 
 dotenv.config();
 
@@ -51,7 +53,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", routes);
 
-app.get("/health", (_req, res) => {
+app.get("/health", (
+  _req: Request,
+    res: Response,
+) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 

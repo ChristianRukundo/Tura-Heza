@@ -60,7 +60,7 @@ const filtersSlice = createSlice({
         state.activities.push(activity)
       }
     },
-    clearFilters: (state) => {
+    clearFilters: () => {
       return initialState
     },
   },

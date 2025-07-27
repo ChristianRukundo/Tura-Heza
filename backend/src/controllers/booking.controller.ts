@@ -1,12 +1,10 @@
-import type { Request, Response, NextFunction } from "express";
-import { PrismaClient, type User } from "@prisma/client";
+import type {  Response, NextFunction } from "express";
+import { PrismaClient } from "@prisma/client";
 import { AppError } from "../utils/appError";
 
-const prisma = new PrismaClient();
+import { AuthenticatedRequest } from "../types/express";
 
-interface AuthenticatedRequest extends Request {
-  user?: User;
-}
+const prisma = new PrismaClient();
 
 export const createBooking = async (
   req: AuthenticatedRequest,

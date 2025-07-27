@@ -1,10 +1,9 @@
 "use client"
 
-import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 
-export function LineChart({ data }: { data: any[] }) {
-  const { theme } = useTheme()
+export function LineChart() {
+  
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -23,8 +22,8 @@ export function LineChart({ data }: { data: any[] }) {
   )
 }
 
-export function BarChart({ data }: { data: any[] }) {
-  const { theme } = useTheme()
+export function BarChart() {
+  
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -43,7 +42,7 @@ export function BarChart({ data }: { data: any[] }) {
   )
 }
 
-export function PieChart({ data }: { data: any[] }) {
+export function PieChart() {
   
   const [mounted, setMounted] = useState(false)
 

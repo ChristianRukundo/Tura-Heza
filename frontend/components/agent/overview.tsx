@@ -116,7 +116,7 @@ export function AgentOverview() {
               <CardTitle>Revenue Over Time</CardTitle>
             </CardHeader>
             <CardContent>
-              <LineChart data={stats.revenueData || []} />
+              <LineChart  />
             </CardContent>
           </Card>
         </TabsContent>
@@ -126,7 +126,7 @@ export function AgentOverview() {
               <CardTitle>Bookings by Month</CardTitle>
             </CardHeader>
             <CardContent>
-              <BarChart data={stats.bookingsData || []} />
+              <BarChart />
             </CardContent>
           </Card>
         </TabsContent>
@@ -136,7 +136,7 @@ export function AgentOverview() {
               <CardTitle>User Distribution</CardTitle>
             </CardHeader>
             <CardContent>
-              <PieChart data={stats.userData || []} />
+              <PieChart  />
             </CardContent>
           </Card>
         </TabsContent>
