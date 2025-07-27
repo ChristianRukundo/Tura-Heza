@@ -11,7 +11,7 @@ export function Footer() {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
           <div className="bg-slate-800 text-white p-8 rounded-lg">
-            <h3 className="text-2xl font-semibold mb-6">Let's connect</h3>
+            <h3 className="text-2xl font-semibold mb-6">Let&apos;s connect</h3>
             <div className="space-y-4">
               <div>
                 <p className="font-medium">Phone</p>
@@ -41,7 +41,7 @@ export function Footer() {
           </div>
           <div className="bg-white p-8 rounded-lg shadow">
             <h3 className="text-2xl font-semibold mb-6">
-              We'd love to hear from you
+              We&apos;d love to hear from you
             </h3>
             <form className="space-y-4">
               <div className="grid grid-cols-2 gap-4">

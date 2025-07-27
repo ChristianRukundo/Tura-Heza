@@ -42,7 +42,7 @@ export default function ProtectedRoute({
         router.push("/");
       }
     }
-  }, [isLoading, isAuthenticated, user, router, pathname, allowedRoles]);
+  }, [isLoading, toast ,isAuthenticated, user, router, pathname, allowedRoles]);
 
   if (isLoading || !isAuthenticated) {
     return null;

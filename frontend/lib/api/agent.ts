@@ -8,8 +8,7 @@ import type {
   PropertyFormData,
   ApiResponse,
 } from "@/lib/types";
-import { useToast } from "@/hooks/use-toast"; 
-
+import { useToast } from "@/hooks/use-toast";
 
 export function useAgentStats() {
   const { toast } = useToast();
@@ -17,17 +16,21 @@ export function useAgentStats() {
   return useQuery<ApiResponse<AgentStats>, Error>({
     queryKey: ["agentStats"],
     queryFn: async () => {
-      const res = await apiGet<ApiResponse<AgentStats>>("/agent/stats");
-      if (res?.error) {
+      try {
+        const res = await apiGet<ApiResponse<AgentStats>>("/agent/stats");
+        if (res?.error) {
+          throw new Error(res.error);
+        }
+        return res;
+      } catch (error) {
         toast({
           title: "Error fetching agent stats",
-          description: res.error,
+          description: (error as Error).message || "An unknown error occurred.",
           variant: "destructive",
         });
-        throw new Error(res.error);
+        throw error; // Re-throw to propagate the error for useQuery to mark as failed
       }
-      return res;
-    }
+    },
   });
 }
 
@@ -37,67 +40,79 @@ export function useAgentProperties() {
   return useQuery<ApiResponse<Property[]>, Error>({
     queryKey: ["agentProperties"],
     queryFn: async () => {
-      const res = await apiGet<ApiResponse<Property[]>>("/agent/properties");
-      if (res?.error) {
+      try {
+        const res = await apiGet<ApiResponse<Property[]>>("/agent/properties");
+        if (res?.error) {
+          throw new Error(res.error);
+        }
+        return res;
+      } catch (error) {
         toast({
           title: "Error fetching agent properties",
-          description: res.error,
+          description: (error as Error).message || "An unknown error occurred.",
           variant: "destructive",
         });
-        throw new Error(res.error);
+        throw error;
       }
-      return res;
-    }
+    },
   });
 }
 
-export function fetchAgentBookings() {
-  const { toast } = useToast();
-
-  return async (): Promise<ApiResponse<Booking[]>> => {
-    const res = await apiGet<ApiResponse<Booking[]>>("/agent/bookings");
-    if (res?.error) {
-      toast({
-        title: "Error fetching agent bookings",
-        description: res.error,
-        variant: "destructive",
-      });
-      throw new Error(res.error);
-    }
-    return res;
-  };
-}
+// Renamed to follow convention and indicate it's not a hook
+const getAgentBookings = async (): Promise<ApiResponse<Booking[]>> => {
+  const res = await apiGet<ApiResponse<Booking[]>>("/agent/bookings");
+  if (res?.error) {
+    throw new Error(res.error);
+  }
+  return res;
+};
 
 export function useAgentBookings() {
+  const { toast } = useToast();
+
   return useQuery<ApiResponse<Booking[]>, Error>({
     queryKey: ["agentBookings"],
-    queryFn: fetchAgentBookings(),
-    
+    queryFn: async () => {
+      try {
+        return await getAgentBookings();
+      } catch (error) {
+        toast({
+          title: "Error fetching agent bookings",
+          description: (error as Error).message || "An unknown error occurred.",
+          variant: "destructive",
+        });
+        throw error;
+      }
+    },
   });
 }
 
-export function fetchAgentUsers() {
-  const { toast } = useToast();
-
-  return async (): Promise<ApiResponse<User[]>> => {
-    const res = await apiGet<ApiResponse<User[]>>("/agent/users");
-    if (res?.error) {
-      toast({
-        title: "Error fetching agent users",
-        description: res.error,
-        variant: "destructive",
-      });
-      throw new Error(res.error);
-    }
-    return res;
-  };
-}
+// Renamed to follow convention and indicate it's not a hook
+const getAgentUsers = async (): Promise<ApiResponse<User[]>> => {
+  const res = await apiGet<ApiResponse<User[]>>("/agent/users");
+  if (res?.error) {
+    throw new Error(res.error);
+  }
+  return res;
+};
 
 export function useAgentUsers() {
+  const { toast } = useToast();
+
   return useQuery<ApiResponse<User[]>, Error>({
     queryKey: ["agentUsers"],
-    queryFn: fetchAgentUsers(),
- 
+    queryFn: async () => {
+      try {
+        return await getAgentUsers();
+      } catch (error) {
+        toast({
+          title: "Error fetching agent users",
+          description: (error as Error).message || "An unknown error occurred.",
+          variant: "destructive",
+        });
+        throw error;
+      }
+    },
   });
 }
 
@@ -112,17 +127,11 @@ export function useCreateProperty() {
         propertyData
       );
       if (res?.error) {
-        toast({
-          title: "Error creating property",
-          description: res.error,
-          variant: "destructive",
-        });
         throw new Error(res.error);
       }
       return res;
     },
     onSuccess: () => {
-      
       queryClient.invalidateQueries({ queryKey: ["agentProperties"] });
       queryClient.invalidateQueries({ queryKey: ["properties"] });
       toast({
@@ -156,17 +165,11 @@ export function useUpdateProperty() {
         data
       );
       if (res?.error) {
-        toast({
-          title: "Error updating property",
-          description: res.error,
-          variant: "destructive",
-        });
         throw new Error(res.error);
       }
       return res;
     },
     onSuccess: () => {
-      
       queryClient.invalidateQueries({ queryKey: ["agentProperties"] });
       queryClient.invalidateQueries({ queryKey: ["properties"] });
       toast({
@@ -193,17 +196,11 @@ export function useDeleteProperty() {
     mutationFn: async (id: string) => {
       const res = await apiDelete<ApiResponse<void>>(`/agent/properties/${id}`);
       if (res?.error) {
-        toast({
-          title: "Error deleting property",
-          description: res.error,
-          variant: "destructive",
-        });
         throw new Error(res.error);
       }
       return res;
     },
     onSuccess: () => {
-      
       queryClient.invalidateQueries({ queryKey: ["agentProperties"] });
       queryClient.invalidateQueries({ queryKey: ["properties"] });
       toast({
@@ -222,7 +219,6 @@ export function useDeleteProperty() {
   });
 }
 
-
 type BookingStatus = "pending" | "confirmed" | "cancelled" | "completed";
 
 export function useUpdateBookingStatus() {
@@ -240,17 +236,11 @@ export function useUpdateBookingStatus() {
         { status }
       );
       if (res?.error) {
-        toast({
-          title: "Error updating booking status",
-          description: res.error,
-          variant: "destructive",
-        });
         throw new Error(res.error);
       }
       return res;
     },
     onSuccess: () => {
-      
       queryClient.invalidateQueries({ queryKey: ["agentBookings"] });
       queryClient.invalidateQueries({ queryKey: ["bookings"] });
       toast({
@@ -270,7 +260,6 @@ export function useUpdateBookingStatus() {
   });
 }
 
-
 type UserRole = "USER" | "AGENT";
 
 export function useUpdateUserRole() {
@@ -283,17 +272,11 @@ export function useUpdateUserRole() {
         role,
       });
       if (res?.error) {
-        toast({
-          title: "Error updating user role",
-          description: res.error,
-          variant: "destructive",
-        });
         throw new Error(res.error);
       }
       return res;
     },
     onSuccess: () => {
-      
       queryClient.invalidateQueries({ queryKey: ["agentUsers"] });
       toast({
         title: "User role updated",

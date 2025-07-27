@@ -35,7 +35,7 @@ export default function FavoritesPage() {
           </div>
           <h2 className="mt-4 text-xl font-semibold">No favorites yet</h2>
           <p className="mt-2 text-center text-muted-foreground">
-            You haven't saved any properties to your favorites yet.
+            You haven&apos;t saved any properties to your favorites yet.
             <br />
             Browse our collection and click the heart icon to save properties.
           </p>

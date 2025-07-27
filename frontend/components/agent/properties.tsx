@@ -302,8 +302,8 @@ export function AgentProperties() {
                         "Nyungwe Forest National Park",
                         "Volcanoes National Park",
                         "Lake Kivu",
-                      ].map((location) => (
-                        <SelectItem value={location} className="cursor-pointer">
+                      ].map((location, index) => (
+                        <SelectItem value={location}  key={index} className="cursor-pointer">
                           {location}
                         </SelectItem>
                       ))}
@@ -449,7 +449,7 @@ export function AgentProperties() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {properties.map((property) => (
+              {properties.map((property: Property) => (
                 <TableRow key={property.id}>
                   <TableCell className="font-medium">
                     {property.title}

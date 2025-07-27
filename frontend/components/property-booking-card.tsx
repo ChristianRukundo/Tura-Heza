@@ -202,7 +202,7 @@ export function PropertyBookingCard({ property }: PropertyBookingCardProps) {
         </Button>
 
         <p className="text-center text-sm text-muted-foreground">
-          You won't be charged yet
+          You won&apos;t be charged yet
         </p>
 
         <div className="space-y-4 mt-6">

@@ -35,7 +35,7 @@ export default function Home() {
               Discover Extraordinary Luxury Villas
             </h1>
             <p className="text-xl mb-8">
-              Experience unparalleled luxury in the world's most stunning
+              Experience unparalleled luxury in the world&apos;s most stunning
               locations
             </p>
             <div className="flex gap-4">
@@ -138,8 +138,8 @@ export default function Home() {
         <div className="container relative z-10">
           <FadeIn className="max-w-3xl mx-auto text-center text-white">
             <p className="text-2xl italic font-light">
-              "Luxury takes many forms nowadays, but one thing doesn't change:
-              luxury is about desire and the ability to create dreams."
+              &apos;Luxury takes many forms nowadays, but one thing doesn&apos;t change:
+              luxury is about desire and the ability to create dreams.&apos;
             </p>
           </FadeIn>
         </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image"; // Import Image component
 import { useProperty } from "@/lib/api/properties";
 import { useUpdateProperty } from "@/lib/api/agent";
 import { useToast } from "@/hooks/use-toast";
@@ -51,21 +52,17 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-
-export default async function EditPropertyPage({
+export default function EditPropertyPage({
   params,
 }: {
-  params: Promise<{ id: string }>; 
+  params: { id: string };
 }) {
-  
-  const resolvedParams = await params;
-  const propertyId = resolvedParams.id; 
+  const { id: propertyId } = params; // Directly destructure id from params
 
   const router = useRouter();
   const { toast } = useToast();
-  const { data: propertyData, isLoading: isLoadingProperty } = useProperty(
-    propertyId
-  );
+  const { data: propertyData, isLoading: isLoadingProperty } =
+    useProperty(propertyId);
   const updatePropertyMutation = useUpdateProperty();
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState("");
@@ -130,7 +127,6 @@ export default async function EditPropertyPage({
 
   const onSubmit = (data: FormValues) => {
     updatePropertyMutation.mutate(
-      // Use propertyId here
       { id: propertyId, data },
       {
         onSuccess: () => {
@@ -321,9 +317,11 @@ export default async function EditPropertyPage({
                         key={index}
                         className="relative rounded-md border p-2"
                       >
-                        <img
+                        <Image
                           src={url || "/placeholder.svg"}
                           alt={`Property image ${index + 1}`}
+                          width={300}
+                          height={200}
                           className="h-32 w-full rounded object-cover"
                         />
                         <Button

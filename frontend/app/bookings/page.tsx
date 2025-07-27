@@ -106,7 +106,7 @@ export default function BookingsPage() {
           </div>
           <h2 className="mt-4 text-xl font-semibold">No bookings yet</h2>
           <p className="mt-2 text-center text-muted-foreground">
-            You haven't made any bookings yet.
+            You haven&apos;t made any bookings yet.
             <br />
             Browse our properties and book your next stay.
           </p>

@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+
 import {
   Select,
   SelectContent,
@@ -30,6 +31,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { FadeIn, SlideUp } from "@/components/animations";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 const formSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
@@ -279,7 +281,7 @@ export default function AddPropertyPage() {
                         key={index}
                         className="relative rounded-md border p-2"
                       >
-                        <img
+                        <Image
                           src={url || "/placeholder.svg"}
                           alt={`Property image ${index + 1}`}
                           className="h-32 w-full rounded object-cover"
