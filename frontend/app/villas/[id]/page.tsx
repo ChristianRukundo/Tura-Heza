@@ -126,7 +126,6 @@ export default function PropertyPage({
             <h2 className="text-xl font-semibold mb-4">Location</h2>
             <PropertyMap
               location={property.location}
-              coordinates={property.coordinates}
             />
           </div>
         </div>

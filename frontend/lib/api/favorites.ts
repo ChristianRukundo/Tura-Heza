@@ -4,8 +4,6 @@ import {
   useQuery,
   useMutation,
   useQueryClient,
-  QueryClient,
-  QueryClientProvider,
   UseQueryOptions,
 } from "@tanstack/react-query";
 import { ApiError, apiGet, apiPost } from "@/lib/api/api-utils";

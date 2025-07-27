@@ -44,7 +44,7 @@ export function BarChart({ data }: { data: any[] }) {
 }
 
 export function PieChart({ data }: { data: any[] }) {
-  const { theme } = useTheme()
+  
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {

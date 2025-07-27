@@ -3,10 +3,10 @@ import { MapPin } from "lucide-react";
 
 interface PropertyMapProps {
   location: string;
-  coordinates?: { lat: number; lng: number };
+
 }
 
-export function PropertyMap({ location, coordinates }: PropertyMapProps) {
+export function PropertyMap({ location }: PropertyMapProps) {
   return (
     <div className="relative h-80 bg-muted rounded-lg overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center">

@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
 import { Github } from "lucide-react";
 import { FadeIn, SlideUp } from "@/components/animations";
 import { useAuth } from "@/context/auth-context";
