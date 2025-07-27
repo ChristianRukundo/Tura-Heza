@@ -8,34 +8,11 @@
     "build": "rimraf dist && npx tsc",
     "start": "npm run build && node dist/index.js",
     "dev": "npm run build && concurrently \"npx tsc -w\" \"nodemon --exec ts-node src/server.ts\"",
-    "seed": "ts-node prisma/seed.ts",
-    "generate-properties": "ts-node prisma/seed/generateProperties.ts",
-    "generate-bookings": "ts-node prisma/seed/generateBookings.ts",
-    "generate-favorites": "ts-node prisma/seed/generateFavorites.ts",
-    "generate-seed-data": "npm run generate-properties && npm run generate-bookings && npm run generate-favorites"
+    "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
-    "@types/bcryptjs": "^2.4.6",
-    "@types/compression": "^1.7.5",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/express-validator": "^2.20.33",
-    "@types/jsonwebtoken": "^9.0.9",
-    "@types/morgan": "^1.9.9",
-    "@types/node": "^22.15.2",
-    "@types/swagger-jsdoc": "^6.0.4",
-    "@types/swagger-ui-express": "^4.1.8",
-    "@types/uuid": "^10.0.0",
-    "concurrently": "^8.2.2",
-    "nodemon": "^3.1.4",
-    "rimraf": "^6.0.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
-  },
   "dependencies": {
     "@faker-js/faker": "^9.7.0",
     "@prisma/client": "^5.18.0",
@@ -53,6 +30,27 @@
     "prisma": "^5.17.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+
+
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/express-validator": "^2.20.33",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.15.2",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "@types/uuid": "^10.0.0",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4"
   }
 }
