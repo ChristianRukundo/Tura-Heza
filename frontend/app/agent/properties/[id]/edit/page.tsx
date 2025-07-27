@@ -52,17 +52,18 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function EditPropertyPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const { id: propertyId } = params; // Directly destructure id from params
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function  EditPropertyPage( props : PageProps) {
+
+  const { id  } = await props.params;
 
   const router = useRouter();
   const { toast } = useToast();
   const { data: propertyData, isLoading: isLoadingProperty } =
-    useProperty(propertyId);
+    useProperty(id);
   const updatePropertyMutation = useUpdateProperty();
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState("");
@@ -127,7 +128,7 @@ export default function EditPropertyPage({
 
   const onSubmit = (data: FormValues) => {
     updatePropertyMutation.mutate(
-      { id: propertyId, data },
+      { id: id, data },
       {
         onSuccess: () => {
           toast({
