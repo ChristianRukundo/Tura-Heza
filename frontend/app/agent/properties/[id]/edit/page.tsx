@@ -1,8 +1,8 @@
-"use client";
+"use client"; // Keep this
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image"; // Import Image component
+import Image from "next/image";
 import { useProperty } from "@/lib/api/properties";
 import { useUpdateProperty } from "@/lib/api/agent";
 import { useToast } from "@/hooks/use-toast";
@@ -53,17 +53,17 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 type PageProps = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
+  
 };
 
-export default async function  EditPropertyPage( props : PageProps) {
-
-  const { id  } = await props.params;
+export default function EditPropertyPage(props: PageProps) {
+  const { id } = props.params;
 
   const router = useRouter();
   const { toast } = useToast();
   const { data: propertyData, isLoading: isLoadingProperty } =
-    useProperty(id);
+    useProperty(id); 
   const updatePropertyMutation = useUpdateProperty();
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState("");
@@ -128,7 +128,7 @@ export default async function  EditPropertyPage( props : PageProps) {
 
   const onSubmit = (data: FormValues) => {
     updatePropertyMutation.mutate(
-      { id: id, data },
+      { id: id, data }, // Use 'id' directly
       {
         onSuccess: () => {
           toast({
