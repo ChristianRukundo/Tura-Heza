@@ -22,10 +22,8 @@ const config = {
       fontFamily: {
         sans: ["ui-sans-serif", "system-ui", "-apple-system", "sans-serif"],
       },
-
       colors: {
         border: "hsl(var(--border))",
-
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
