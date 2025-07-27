@@ -7,6 +7,13 @@ import type {
   PropertySearchResult,
 } from "@/lib/types";
 
+
+export async function getPropertyById(id: string): Promise<Property> {
+  const response = await apiGet<ApiResponse<Property>>(`/properties/${id}`);
+  return response.data;
+}
+
+
 export function useProperties(params: PropertySearchParams = {}) {
   return useQuery<ApiResponse<PropertySearchResult>>({
     queryKey: ["properties", params],
