@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,16 +26,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { fetchAgentBookings, useAgentBookings } from "@/lib/api/agent";
+import {  useAgentBookings } from "@/lib/api/agent";
 import { useState } from "react";
 import { format } from "date-fns";
 import { Check, X, Eye } from "lucide-react";
 
 export function AgentBookings() {
-  // const { data: bookingsResponse, isLoading } = useQuery({
-  //   queryKey: ["agentBookings"],
-  //   queryFn: fetchAgentBookings,
-  // })
+
 
   const { data: bookingsResponse, isLoading } = useAgentBookings();
   const bookings = bookingsResponse?.data || [];

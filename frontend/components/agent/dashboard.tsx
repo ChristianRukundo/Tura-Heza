@@ -5,10 +5,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AgentOverview } from "@/components/agent/overview";
 import { AgentProperties } from "@/components/agent/properties";
 import { AgentBookings } from "@/components/agent/bookings";
-import { AgentUsers } from "@/components/agent/users";
+
 
 export function AgentDashboard() {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [_activeTab, setActiveTab] = useState("overview");
 
   return (
     <div className="container py-10">

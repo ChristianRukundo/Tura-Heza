@@ -5,7 +5,7 @@ import { PropertyFilters } from "@/components/property-filters";
 import { PropertyListSkeleton } from "@/components/property-list-skeleton";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import { Header } from "@/components/header";
+
 
 export default function VillasPage() {
   const searchParams = useSearchParams();

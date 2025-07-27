@@ -1,5 +1,4 @@
-import type { Config } from "tailwindcss"
-import { fontFamily } from "tailwindcss/defaultTheme"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
@@ -21,11 +20,12 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ["ui-sans-serif", "system-ui", "-apple-system", "sans-serif"],
       },
 
       colors: {
         border: "hsl(var(--border))",
+
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -59,6 +59,9 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      borderColor: {
+        border: "hsl(var(--border))",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -81,6 +84,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;

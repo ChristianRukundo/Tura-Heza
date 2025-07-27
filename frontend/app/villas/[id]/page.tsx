@@ -12,11 +12,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { Property } from "@/lib/types";
 import { use } from "react";
 
-interface PropertyPageProps {
-  params: {
-    id: string;
-  };
-}
 
 export default function PropertyPage({
   params,

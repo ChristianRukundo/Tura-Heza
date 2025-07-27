@@ -130,7 +130,7 @@ export default function AgentAnalyticsPage() {
                           `${name}: ${(percent * 100).toFixed(0)}%`
                         }
                       >
-                        {(stats.topLocations || []).map((entry, index) => (
+                        {(stats.topLocations || []).map((_entry, index) => (
                           <Cell
                             key={`cell-${index}`}
                             fill={COLORS[index % COLORS.length]}
@@ -222,7 +222,7 @@ export default function AgentAnalyticsPage() {
                           `${name}: ${(percent * 100).toFixed(0)}%`
                         }
                       >
-                        {(stats.topLocations || []).map((entry, index) => (
+                        {(stats.topLocations || []).map((_entry, index) => (
                           <Cell
                             key={`cell-${index}`}
                             fill={COLORS[index % COLORS.length]}

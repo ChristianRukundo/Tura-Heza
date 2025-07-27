@@ -35,7 +35,7 @@ export default function AgentProfilePage() {
     twitter: "@luxuryrentals",
   });
 
-  const [passwordData, setPasswordData] = useState({
+  const [_passwordData, setPasswordData] = useState({
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",

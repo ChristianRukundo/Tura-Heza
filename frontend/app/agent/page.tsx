@@ -2,18 +2,31 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-import { AgentDashboard } from "@/components/agent/dashboard";
-
 import { Loader2 } from "lucide-react";
+
 import { useAuth } from "@/context/auth-context";
+import { AgentDashboard } from "@/components/agent/dashboard";
 import { DashboardLayout } from "@/components/dashboard-layout";
+
 
 export default function AgentPage() {
   const { user } = useAuth();
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState("dashboard");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 300); 
+    return () => clearTimeout(timer);
+  }, []);
+
+  
+  useEffect(() => {
+    if (!user) {
+      router.push("/login"); 
+    }
+  }, [user, router]);
 
   if (isLoading) {
     return (
