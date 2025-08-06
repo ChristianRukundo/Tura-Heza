@@ -4,13 +4,32 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
+    },
+  },
+};
 
 export function Footer() {
   return (
     <footer className="bg-muted py-12">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-          <div className="bg-slate-800 text-white p-8 rounded-lg">
+          <motion.div
+            className="bg-slate-800 text-white p-8 rounded-lg"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={cardVariants}
+          >
             <h3 className="text-2xl font-semibold mb-6">Let&apos;s connect</h3>
             <div className="space-y-4">
               <div>
@@ -38,8 +57,14 @@ export function Footer() {
                 </Link>
               </div>
             </div>
-          </div>
-          <div className="bg-white p-8 rounded-lg shadow">
+          </motion.div>
+          <motion.div
+            className="bg-white p-8 rounded-lg shadow"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={cardVariants}
+          >
             <h3 className="text-2xl font-semibold mb-6">
               We&apos;d love to hear from you
             </h3>
@@ -66,6 +91,7 @@ export function Footer() {
               </div>
               <Button className="w-full">SEND</Button>
             </form>
+            </motion.div>
           </div>
         </div>
         <div className="border-t pt-8">
@@ -126,7 +152,6 @@ export function Footer() {
             <p>© Luxury Rentals. All rights reserved since 2023</p>
           </div>
         </div>
-      </div>
     </footer>
   );
 }

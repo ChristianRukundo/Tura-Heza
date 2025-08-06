@@ -52,6 +52,12 @@ body {
     --ring: 224.3 76.3% 48%;
   }
 }
+.text-gradient {
+  background: linear-gradient(to right, #ffffff, #a7a7a7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
 @layer base {
   /* * {
