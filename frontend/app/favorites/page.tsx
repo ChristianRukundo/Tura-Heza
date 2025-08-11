@@ -1,7 +1,7 @@
 "use client";
 
 import { useFavorites } from "@/lib/api/favorites";
-import { PropertyCard } from "@/components/property-card";
+import { PropertyBookingCard } from "@/components/property-card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { FadeIn, SlideUp } from "@/components/animations";
@@ -47,7 +47,7 @@ export default function FavoritesPage() {
         <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {favoritesData.data &&
             favoritesData.data.map((favorite) => (
-              <PropertyCard key={favorite.property.id} property={favorite.property} />
+              <PropertyBookingCard key={favorite.property.id} property={favorite.property} />
             ))}
         </div>
       )}

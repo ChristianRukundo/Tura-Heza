@@ -1,6 +1,6 @@
 "use client";
 
-import { PropertyCard } from "@/components/property-card";
+import { PropertyBookingCard } from "@/components/property-card";
 import { Pagination } from "@/components/pagination";
 import { StaggerChildren } from "@/components/animations";
 import { useProperties } from "@/lib/api/properties";
@@ -63,7 +63,7 @@ export function PropertyList({ searchParams }: PropertyListProps) {
 
       <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {properties.map((property, index) => (
-          <PropertyCard key={property.id} property={property} index={index} />
+          <PropertyBookingCard key={property.id} property={property} index={index} />
         ))}
       </StaggerChildren>
 

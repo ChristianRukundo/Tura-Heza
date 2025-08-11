@@ -13,6 +13,8 @@ import { UserNav } from "@/components/user-nav";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { CommandDialog } from "@/components/ui/command";
+import { Input } from "@/components/ui/input";
 
 const navItems = [
   { name: "Villas", href: "/villas" },
@@ -25,6 +27,7 @@ export function Header() {
   const { user, isLoading, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -213,6 +216,12 @@ export function Header() {
           </Sheet>
         </div>
       </div>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <Input
+          placeholder="Type a command or search..."
+          className="border-0 focus-visible:ring-0"
+        />
+      </CommandDialog>
     </motion.header>
   );
 }
