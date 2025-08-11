@@ -54,7 +54,7 @@ export const FeaturesSection = () => {
             Redefining Luxury
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            We don't just offer accommodations; we craft experiences that
+            We don&apos;t just offer accommodations; we craft experiences that
             resonate with your soul and create memories that last a lifetime.
           </p>
         </motion.div>
