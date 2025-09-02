@@ -15,6 +15,7 @@ import { Menu, X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { CommandDialog } from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
+import { Logo } from "./logo";
 
 const navItems = [
   { name: "Villas", href: "/villas" },
@@ -53,12 +54,7 @@ export function Header() {
     >
       <div className="container flex h-20 items-center justify-between">
         {/* Logo */}
-        <Link
-          href="/"
-          className="font-bold text-xl tracking-wider transition-colors hover:text-primary"
-        >
-          TURA HEZA
-        </Link>
+        <Logo />
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-2 relative">

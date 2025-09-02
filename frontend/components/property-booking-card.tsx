@@ -310,7 +310,7 @@ export function PropertyBookingCard ({ property }: BookingCardProps) {
 
           {/* Reserve Button */}
           <Button
-            className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-primary to-purple-600 hover:shadow-lg transition-all duration-300"
+            className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-primary cursor-pointer to-purple-600 hover:shadow-lg transition-all duration-300"
             size="lg"
             onClick={handleBooking}
             disabled={isPending || !dateRange.to}

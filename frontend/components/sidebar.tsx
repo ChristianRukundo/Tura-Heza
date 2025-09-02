@@ -23,6 +23,7 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
+import { Logo } from "./logo";
 
 interface SidebarProps {
   className?: string;
@@ -126,22 +127,7 @@ export function Sidebar({ className }: SidebarProps) {
       )}
     >
       <div className="flex h-14 items-center border-b px-3 py-4">
-        <Link
-          href="/"
-          className={cn(
-            "flex items-center gap-2 font-semibold tracking-wider transition-all",
-            isCollapsed ? "justify-center" : "justify-start"
-          )}
-        >
-          {isCollapsed ? (
-            <Building className="h-6 w-6" />
-          ) : (
-            <>
-              <Building className="h-6 w-6" />
-              <span className="text-lg">TURA HEZA</span>
-            </>
-          )}
-        </Link>
+        <Logo className="w-full" textHidden={isCollapsed} />
       </div>
       <ScrollArea className="flex-1 px-3 py-2">
         <div className="space-y-1 py-2">
