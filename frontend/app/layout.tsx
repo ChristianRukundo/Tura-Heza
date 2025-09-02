@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Luxury Rentals | Find Your Dream Villa",
+  title: "Tura Heza | Find Your Dream Villa in Rwanda",
   description: "Discover and book luxury villas for your next vacation",
   icons: {
     icon: "/favicon.ico",

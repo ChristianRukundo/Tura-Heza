@@ -103,6 +103,7 @@ export const login = async (
       where: { email },
     });
 
+    console.log(user);
     if (!user || !user.password) {
       return next(new AppError("Invalid email or password", 401));
     }

@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import {  useRef } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -26,7 +26,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
-
+import { Logo } from "./logo";
 
 const SocialLinks = () => {
   const socialLinks = [
@@ -182,19 +182,8 @@ export function Footer() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <Link href="/" className="inline-block mb-6">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className={cn(
-                      "text-3xl font-bold bg-clip-text text-transparent",
-                      isDark
-                        ? "bg-gradient-to-r from-white via-blue-100 to-purple-200"
-                        : "bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500"
-                    )}
-                  >
-                    TURA HEZA
-                  </motion.div>
-                </Link>
+                <Logo size="lg" className="mb-6" />
+
                 <p
                   className={cn(
                     "mb-6 leading-relaxed max-w-md",

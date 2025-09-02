@@ -54,7 +54,7 @@ export function Header() {
     >
       <div className="container flex h-20 items-center justify-between">
         {/* Logo */}
-        <Logo />
+        <Logo size="md" />
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-2 relative">

@@ -127,7 +127,14 @@ export function Sidebar({ className }: SidebarProps) {
       )}
     >
       <div className="flex h-14 items-center border-b px-3 py-4">
-        <Logo className="w-full" textHidden={isCollapsed} />
+        <Logo
+          size={isCollapsed ? "sm" : "md"}
+          textHidden={isCollapsed}
+          className={cn(
+            "w-full",
+            isCollapsed ? "justify-center" : "justify-start"
+          )}
+        />
       </div>
       <ScrollArea className="flex-1 px-3 py-2">
         <div className="space-y-1 py-2">

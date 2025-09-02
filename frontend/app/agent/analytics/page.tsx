@@ -24,6 +24,22 @@ import {
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
 
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-lg border bg-background p-2 shadow-sm">
+        <p className="font-bold">{label}</p>
+        <p className="text-sm text-muted-foreground">
+          {`${payload[0].name}: ${
+            payload[0].name === "Revenue" ? "$" : ""
+          }${payload[0].value.toLocaleString()}`}
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function AgentAnalyticsPage() {
   const { data: statsData, isLoading } = useAgentStats();
 
@@ -49,7 +65,7 @@ export default function AgentAnalyticsPage() {
     );
   }
 
-  if (!statsData) {
+  if (!statsData || !statsData.data) {
     return (
       <DashboardLayout requireAgent>
         <div className="flex h-full items-center justify-center">
@@ -72,184 +88,141 @@ export default function AgentAnalyticsPage() {
         </p>
       </FadeIn>
 
-      <Tabs defaultValue="revenue" className="mt-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="revenue">Revenue</TabsTrigger>
-          <TabsTrigger value="bookings">Bookings</TabsTrigger>
+      <Tabs defaultValue="overview" className="mt-6">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="properties">Properties</TabsTrigger>
-          {}
+          <TabsTrigger value="users">Users</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="revenue" className="mt-6">
-          <div className="grid gap-6 md:grid-cols-2">
-            <SlideUp delay={0.1}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Monthly Revenue</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={350}>
-                    <LineChart data={stats.revenueData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip formatter={(value) => `$${value}`} />
-                      <Legend />
-                      <Line
-                        type="monotone"
-                        dataKey="value"
-                        name="Revenue"
-                        stroke="#8884d8"
-                        strokeWidth={2}
-                        activeDot={{ r: 8 }}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </SlideUp>
+        <TabsContent value="overview" className="mt-6 grid gap-6 md:grid-cols-2">
+          <SlideUp delay={0.1}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Monthly Revenue</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={350}>
+                  <LineChart data={stats.revenueData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis tickFormatter={(value) => `$${value / 1000}k`} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                    <Line
+                      type="monotone"
+                      dataKey="value"
+                      name="Revenue"
+                      stroke="#8884d8"
+                      strokeWidth={2}
+                      activeDot={{ r: 8 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </SlideUp>
 
-            <SlideUp delay={0.2}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Revenue by Location</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={350}>
-                    <PieChart>
-                      <Pie
-                        data={stats.topLocations || []}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        outerRadius={120}
-                        fill="#8884d8"
-                        dataKey="properties"
-                        nameKey="name"
-                        label={({ name, percent }) =>
-                          `${name}: ${(percent * 100).toFixed(0)}%`
-                        }
-                      >
-                        {(stats.topLocations || []).map((_entry, index) => (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value) => `${value} properties`} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </SlideUp>
-          </div>
+          <SlideUp delay={0.2}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Monthly Bookings</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={350}>
+                  <BarChart data={stats.bookingsData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                    <Bar dataKey="value" name="Bookings" fill="#82ca9d" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </SlideUp>
         </TabsContent>
 
-        <TabsContent value="bookings" className="mt-6">
-          <div className="grid gap-6 md:grid-cols-2">
-            <SlideUp delay={0.1}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Monthly Bookings</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={350}>
-                    <BarChart data={stats.bookingsData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="value" name="Bookings" fill="#82ca9d" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </SlideUp>
-
-            <SlideUp delay={0.2}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Top Performing Properties</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={350}>
-                    <BarChart
-                      data={stats.topProperties}
-                      layout="vertical"
-                      margin={{ left: 20 }}
+        <TabsContent value="properties" className="mt-6 grid gap-6 md:grid-cols-2">
+           <SlideUp delay={0.1}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Properties by Location</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={350}>
+                  <PieChart>
+                    <Pie
+                      data={stats.topLocations || []}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      outerRadius={120}
+                      fill="#8884d8"
+                      dataKey="properties"
+                      nameKey="name"
+                      label={({ name, percent }) =>
+                        `${name}: ${(percent * 100).toFixed(0)}%`
+                      }
                     >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis type="number" />
-                      <YAxis
-                        type="category"
-                        dataKey="title"
-                        width={100}
-                        tick={{ fontSize: 12 }}
-                      />
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="bookings" name="Bookings" fill="#8884d8" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </SlideUp>
-          </div>
+                      {(stats.topLocations || []).map((_entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value) => `${value} properties`} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </SlideUp>
+          <SlideUp delay={0.2}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Top Performing Properties (by Bookings)</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={350}>
+                  <BarChart
+                    data={stats.topProperties}
+                    layout="vertical"
+                    margin={{ left: 20, right: 20 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis type="number" />
+                    <YAxis
+                      type="category"
+                      dataKey="title"
+                      width={120}
+                      tick={{ fontSize: 12 }}
+                      tickLine={false}
+                      axisLine={false}
+                    />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                    <Bar dataKey="bookings" name="Bookings" fill="#8884d8" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </SlideUp>
         </TabsContent>
 
-        <TabsContent value="properties" className="mt-6">
-          <div className="grid gap-6 md:grid-cols-2">
-            <SlideUp delay={0.1}>
+        <TabsContent value="users" className="mt-6">
+           <SlideUp>
               <Card>
                 <CardHeader>
-                  <CardTitle>Properties by Location</CardTitle>
+                  <CardTitle>User Engagement</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={350}>
-                    <PieChart>
+                     <PieChart>
                       <Pie
-                        data={stats.topLocations || []}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        outerRadius={120}
-                        fill="#8884d8"
-                        dataKey="properties"
-                        nameKey="name"
-                        label={({ name, percent }) =>
-                          `${name}: ${(percent * 100).toFixed(0)}%`
-                        }
-                      >
-                        {(stats.topLocations || []).map((_entry, index) => (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value) => `${value} properties`} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </SlideUp>
-
-            <SlideUp delay={0.2}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Property Status Distribution</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={350}>
-                    <PieChart>
-                      <Pie
-                        data={[
-                          { name: "Active", value: stats.totalProperties - 2 },
-                          { name: "Inactive", value: 1 },
-                          { name: "Pending", value: 1 },
-                        ]}
+                        data={stats.userData || []}
                         cx="50%"
                         cy="50%"
                         labelLine={false}
@@ -261,19 +234,21 @@ export default function AgentAnalyticsPage() {
                           `${name}: ${(percent * 100).toFixed(0)}%`
                         }
                       >
-                        <Cell fill="#4ade80" />
-                        <Cell fill="#f87171" />
-                        <Cell fill="#facc15" />
+                        {(stats.userData || []).map((_entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                          />
+                        ))}
                       </Pie>
-                      <Tooltip formatter={(value) => `${value} properties`} />
+                      <Tooltip formatter={(value) => `${value} users`} />
+                      <Legend />
                     </PieChart>
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
             </SlideUp>
-          </div>
         </TabsContent>
-        {}
       </Tabs>
     </DashboardLayout>
   );

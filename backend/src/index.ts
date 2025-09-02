@@ -5,12 +5,13 @@ import compression from "compression";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { rateLimit } from "express-rate-limit";
+import { createServer } from "http";
 import routes from "./routes";
 import errorHandler from "./middleware/errorHandler";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./utils/swagger";
+import { SocketService } from "./services/socket.service";
 import type { Request, Response } from "express";
-
 
 dotenv.config();
 
@@ -53,17 +54,27 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", routes);
 
-app.get("/health", (
-  _req: Request,
-    res: Response,
-) => {
+app.get("/health", (_req: Request, res: Response) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+// Create HTTP server
+const server = createServer(app);
+
+// Initialize Socket.IO
+const socketService = new SocketService(server);
+
+// Make socket service available globally
+declare global {
+  var socketService: SocketService;
+}
+global.socketService = socketService;
+
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`Socket.IO server initialized`);
 });
 
 export default app;

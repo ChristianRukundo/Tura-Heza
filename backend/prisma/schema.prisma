@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // directUrl = env("DIRECT_URL")
 }
 
@@ -21,6 +21,10 @@ model User {
   favorites     Favorite[]
   refreshTokens RefreshToken[]
   Property      Property[]
+
+  // Chat relations
+  sentMessages             Message[]                 @relation("MessageSender")
+  conversationParticipants ConversationParticipant[]
 }
 
 model Property {
@@ -43,10 +47,11 @@ model Property {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  agentId   String
-  agent     User       @relation(fields: [agentId], references: [id])
-  bookings  Booking[]
-  favorites Favorite[]
+  agentId      String
+  agent        User           @relation(fields: [agentId], references: [id])
+  bookings     Booking[]
+  favorites    Favorite[]
+  Conversation Conversation[]
 }
 
 model Booking {
@@ -117,4 +122,54 @@ enum PaymentStatus {
   paid
   failed
   refunded
+}
+
+// Chat Models
+model Conversation {
+  id         String   @id @default(cuid())
+  propertyId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  property     Property                  @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  participants ConversationParticipant[]
+  messages     Message[]
+
+  @@index([propertyId])
+}
+
+model ConversationParticipant {
+  id             String    @id @default(cuid())
+  conversationId String
+  userId         String
+  joinedAt       DateTime  @default(now())
+  lastReadAt     DateTime?
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+}
+
+model Message {
+  id             String      @id @default(cuid())
+  conversationId String
+  senderId       String
+  content        String
+  messageType    MessageType @default(TEXT)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([senderId])
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
 }
