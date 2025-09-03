@@ -1,9 +1,13 @@
 import type { Request, Response, NextFunction } from "express";
-
 const { body, validationResult } = require("express-validator");
 import { AppError } from "../utils/appError";
 
-const validate = (req: Request, _res: Response, next: NextFunction) => {
+// Reusable middleware to handle validation results
+export const handleValidationErrors = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const errorMessages = errors
@@ -34,7 +38,7 @@ export const validateRegister = [
     .withMessage("Password is required")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters"),
-  validate,
+  handleValidationErrors,
 ];
 
 export const validateLogin = [
@@ -45,5 +49,5 @@ export const validateLogin = [
     .isEmail()
     .withMessage("Please provide a valid email"),
   body("password").trim().notEmpty().withMessage("Password is required"),
-  validate,
+  handleValidationErrors,
 ];
